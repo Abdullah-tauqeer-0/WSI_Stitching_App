@@ -25,3 +25,28 @@ class StitchingWorker(QThread):
     def run(self):
         try:
             # Late import to ensure VIPS is initialized
+            import pyvips
+            
+            self.status_signal.emit("Starting stitching process...")
+            overlap_y = self.overlap_y
+            overlap_x_norm = 1 - self.overlap_x
+            dir_path = self.input_dir
+            columns = self.columns
+
+            # Compute available row numbers
+            dir_path_abs = os.path.abspath(dir_path)
+            row_set = set()
+            for f in os.listdir(dir_path_abs):
+                if f.lower().endswith(".tif"):
+                    rc = parse_row_col(f, columns)
+                    if rc:
+                        row_set.add(rc[0])
+            
+            if not row_set:
+                self.log_signal.emit("No valid rows detected in the directory.")
+                self.finished_signal.emit("")
+                return
+            
+            row_numbers = sorted(list(row_set))
+            self.log_signal.emit(f"Detected rows: {row_numbers}")
+
