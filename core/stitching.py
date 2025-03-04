@@ -59,3 +59,17 @@ class ImageRegistration:
         if H is None:
             dx, dy = ImageRegistration.phase_correlation_offset(gray1, gray2)
             return dx, dy, len(good_matches)
+
+        t_x = int(round(H[0, 2]))
+        t_y = int(round(H[1, 2]))
+        offset_val = np.array([t_x, t_y])
+
+        if np.linalg.norm(diff_val - offset_val) > 2:
+            return diff_val[0], diff_val[1], num_matches
+        else:
+            return offset_val[0], offset_val[1], num_matches
+
+    @staticmethod
+    def phase_correlation_offset(gray1: np.ndarray, gray2: np.ndarray) -> Tuple[int, int]:
+        f1 = np.float32(gray1)
+        f2 = np.float32(gray2)
