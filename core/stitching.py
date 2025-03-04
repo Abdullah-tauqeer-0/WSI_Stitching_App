@@ -35,3 +35,27 @@ class ImageRegistration:
         if len(good_matches) < 12:
             dx, dy = ImageRegistration.phase_correlation_offset(gray1, gray2)
             return dx, dy, len(good_matches)
+
+        src_pts = np.float32([kp1[m.queryIdx].pt for m in good_matches]).reshape(-1, 1, 2)
+        dst_pts = np.float32([kp2[m.trainIdx].pt for m in good_matches]).reshape(-1, 1, 2)
+
+        diff = (src_pts - dst_pts).reshape(-1, 2)
+        num_matches = len(good_matches)
+        
+        # Simple outlier removal
+        para = 2
+        if len(diff) > 2 * para:
+            rx = np.concatenate((np.argsort(diff[:, 0])[:para], np.argsort(diff[:, 0])[-para:]))
+            ry = np.concatenate((np.argsort(diff[:, 1])[:para], np.argsort(diff[:, 1])[-para:]))
+            remove_idx = np.unique(np.concatenate((rx, ry)))
+            keep_idx = np.array([i for i in range(len(diff)) if i not in remove_idx])
+            src_pts = src_pts[keep_idx]
+            dst_pts = dst_pts[keep_idx]
+
+        dif = np.mean(src_pts - dst_pts, axis=(0, 1))
+        diff_val = np.array([int(round(dif[0])), int(round(dif[1]))])
+
+        H, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+        if H is None:
+            dx, dy = ImageRegistration.phase_correlation_offset(gray1, gray2)
+            return dx, dy, len(good_matches)
