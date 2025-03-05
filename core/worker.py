@@ -50,3 +50,15 @@ class StitchingWorker(QThread):
             row_numbers = sorted(list(row_set))
             self.log_signal.emit(f"Detected rows: {row_numbers}")
 
+            n_rows = len(row_numbers)
+            total_steps = n_rows + 1
+
+            self.status_signal.emit("Processing row images...")
+            row_images = []
+            step = 0
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+                futures = {executor.submit(concatenate_row_sift_return, r, dir_path, columns, overlap_x_norm): r 
+                           for r in row_numbers}
+                for future in concurrent.futures.as_completed(futures):
+                    r = futures[future]
+                    result = future.result()
