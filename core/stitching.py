@@ -73,3 +73,15 @@ class ImageRegistration:
     def phase_correlation_offset(gray1: np.ndarray, gray2: np.ndarray) -> Tuple[int, int]:
         f1 = np.float32(gray1)
         f2 = np.float32(gray2)
+
+        if f1.shape[1] != f2.shape[1]:
+            new_width = min(f1.shape[1], f2.shape[1])
+            f1 = f1[:, (f1.shape[1] - new_width) // 2:(f1.shape[1] + new_width) // 2]
+            f2 = f2[:, (f2.shape[1] - new_width) // 2:(f2.shape[1] + new_width) // 2]
+
+        if f1.shape[0] != f2.shape[0]:
+            new_height = min(f1.shape[0], f2.shape[0])
+            f1 = f1[(f1.shape[0] - new_height) // 2:(f1.shape[0] + new_height) // 2, :]
+            f2 = f2[(f2.shape[0] - new_height) // 2:(f2.shape[0] + new_height) // 2, :]
+
+        def compute_phase_correlate(a, b):
