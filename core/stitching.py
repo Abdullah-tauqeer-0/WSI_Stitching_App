@@ -85,3 +85,19 @@ class ImageRegistration:
             f2 = f2[(f2.shape[0] - new_height) // 2:(f2.shape[0] + new_height) // 2, :]
 
         def compute_phase_correlate(a, b):
+            return cv2.phaseCorrelate(a, b)
+
+        try:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(compute_phase_correlate, f1, f2)
+                shift, conf = future.result(timeout=20)
+                if conf < 0.5:
+                    return 0, 0
+        except Exception:
+            return 0, 0
+
+        dx = int(round(shift[0]))
+        dy = int(round(shift[1]))
+        return dx, dy
+
+def concatenate_row_sift_return(row_number: int, dir_path: str, columns: int, overlap: float, cache_dir: str = "cached_rows") -> Optional[np.ndarray]:
