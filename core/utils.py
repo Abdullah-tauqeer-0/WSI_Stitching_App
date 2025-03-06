@@ -33,3 +33,22 @@ def init_vips(custom_path: Optional[str] = None) -> bool:
             except Exception as e:
                 print(f"Failed to load VIPS from {custom_path}: {e}")
                 return False
+        else:
+            return False
+
+    # Try default import
+    try:
+        import pyvips
+        return True
+    except ImportError:
+        return False
+    except Exception:
+        return False
+
+def parse_row_col(filename: str, columns: int) -> Optional[Tuple[int, int]]:
+    """Parses row and column from filename."""
+    m = re.search(r"_R(\d+)_C(\d+)", filename)
+    if m:
+        return int(m.group(1)), int(m.group(2))
+    m = re.search(r".*?_([0-9]+)_\d+\.tif$", filename)
+    if m:
