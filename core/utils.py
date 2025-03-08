@@ -61,3 +61,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
     return cv2.imread(path, cv2.IMREAD_COLOR)
 
 # Reviewed by AT on 2025-03-08
+# TODO: Optimize this section 7
