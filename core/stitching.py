@@ -101,3 +101,30 @@ class ImageRegistration:
         return dx, dy
 
 def concatenate_row_sift_return(row_number: int, dir_path: str, columns: int, overlap: float, cache_dir: str = "cached_rows") -> Optional[np.ndarray]:
+    os.makedirs(cache_dir, exist_ok=True)
+    cache_path = os.path.join(cache_dir, f"row_{row_number}.tif")
+    if os.path.exists(cache_path):
+        return cv2.imread(cache_path, cv2.IMREAD_COLOR)
+
+    dir_path_abs = os.path.abspath(dir_path)
+    tile_infos = []
+    for f in os.listdir(dir_path_abs):
+        if f.lower().endswith(".tif"):
+            rc = parse_row_col(f, columns)
+            if rc and rc[0] == row_number:
+                tile_infos.append((rc[1], os.path.join(dir_path_abs, f)))
+    
+    if not tile_infos:
+        return None
+
+    tile_infos.sort(key=lambda x: x[0])
+    images = []
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(load_image, path): col for col, path in tile_infos}
+        for future in concurrent.futures.as_completed(futures):
+            col = futures[future]
+            img = future.result()
+            if img is not None:
+                images.append((col, img))
+    images.sort(key=lambda x: x[0])
+    if not images:
