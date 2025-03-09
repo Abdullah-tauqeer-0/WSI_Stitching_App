@@ -59,3 +59,5 @@ def parse_row_col(filename: str, columns: int) -> Optional[Tuple[int, int]]:
 def load_image(path: str) -> Optional[np.ndarray]:
     """Loads an image using OpenCV."""
     return cv2.imread(path, cv2.IMREAD_COLOR)
+
+# Reviewed by AT on 2025-03-08
