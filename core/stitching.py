@@ -149,3 +149,14 @@ def concatenate_row_sift_return(row_number: int, dir_path: str, columns: int, ov
             cumulative_y += dy
         except Exception:
             fallback_dx = int(0.6 * prev_img.shape[1])
+            cumulative_x += fallback_dx
+        
+        positions.append((cumulative_x, cumulative_y))
+
+    xs = [p[0] for p in positions]
+    ys = [p[1] for p in positions]
+    widths = [img.shape[1] for _, img in images]
+    heights = [img.shape[0] for _, img in images]
+
+    min_x = min(xs)
+    min_y = min(ys)
