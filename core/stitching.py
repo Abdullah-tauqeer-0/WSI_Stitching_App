@@ -128,3 +128,24 @@ def concatenate_row_sift_return(row_number: int, dir_path: str, columns: int, ov
                 images.append((col, img))
     images.sort(key=lambda x: x[0])
     if not images:
+        return None
+
+    positions = [(0, 0)]
+    cumulative_x = 0
+    cumulative_y = 0
+
+    for i in range(1, len(images)):
+        prev_img = images[i-1][1]
+        curr_img = images[i][1]
+        crop_width_prev = min(1200, prev_img.shape[1])
+        crop_width_curr = min(1200, curr_img.shape[1])
+        left_crop = prev_img[:, -crop_width_prev:]
+        right_crop = curr_img[:, :crop_width_curr]
+
+        try:
+            dx, dy, _ = ImageRegistration.get_img2_offset(left_crop, right_crop)
+            if dx < 0: dx = 0
+            cumulative_x += (prev_img.shape[1] - crop_width_prev) + dx
+            cumulative_y += dy
+        except Exception:
+            fallback_dx = int(0.6 * prev_img.shape[1])
