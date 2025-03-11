@@ -62,3 +62,20 @@ class StitchingWorker(QThread):
                 for future in concurrent.futures.as_completed(futures):
                     r = futures[future]
                     result = future.result()
+                    if result is not None:
+                        row_images.append((r, result))
+                    else:
+                        self.log_signal.emit(f"Row {r} did not produce a valid image.")
+                    step += 1
+                    progress_pct = int((step / total_steps) * 100)
+                    self.progress_signal.emit(progress_pct)
+
+            if not row_images:
+                self.log_signal.emit("No valid row images to stitch.")
+                self.finished_signal.emit("")
+                return
+
+            self.status_signal.emit("Stitching rows...")
+            final_image = stitch_rows_iteratively(row_images, overlap_y)
+            step += 1
+            self.progress_signal.emit(100)
