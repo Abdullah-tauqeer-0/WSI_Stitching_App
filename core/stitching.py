@@ -160,3 +160,29 @@ def concatenate_row_sift_return(row_number: int, dir_path: str, columns: int, ov
 
     min_x = min(xs)
     min_y = min(ys)
+    max_x = max(x + w for (x, _), w in zip(positions, widths))
+    max_y = max(y + h for (y, _), h in zip(positions, heights))
+    canvas_width = max_x - min_x
+    canvas_height = max_y - min_y
+    canvas = np.zeros((canvas_height, canvas_width, 3), dtype=np.uint8)
+
+    tile_centers_y = []
+    for (col, img), (x, y) in zip(images, positions):
+        h, w = img.shape[:2]
+        x_offset = x - min_x
+        y_offset = y - min_y
+        roi = canvas[y_offset:y_offset+h, x_offset:x_offset+w]
+        mask = (roi.sum(axis=2) == 0)
+        roi[mask] = img[mask]
+        non_mask = ~mask
+        if non_mask.any():
+            roi[non_mask] = ((roi[non_mask].astype(np.float32) + img[non_mask].astype(np.float32)) / 2).astype(np.uint8)
+        canvas[y_offset:y_offset+h, x_offset:x_offset+w] = roi
+        tile_centers_y.append(y_offset + h // 2)
+    
+    median_y = int(np.median(tile_centers_y))
+    tol = (images[0][1].shape[0]//2)
+    crop_top = max(0, median_y - tol)
+    crop_bottom = min(canvas.shape[0], median_y + tol)
+    cropped_canvas = canvas[crop_top:crop_bottom, :]
+    
