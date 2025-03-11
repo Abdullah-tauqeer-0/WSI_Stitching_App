@@ -186,3 +186,28 @@ def concatenate_row_sift_return(row_number: int, dir_path: str, columns: int, ov
     crop_bottom = min(canvas.shape[0], median_y + tol)
     cropped_canvas = canvas[crop_top:crop_bottom, :]
     
+    cv2.imwrite(cache_path, cropped_canvas)
+    return cropped_canvas
+
+def stitch_rows_iteratively(row_images: List[Tuple[int, np.ndarray]], overlap: float) -> Optional[np.ndarray]:
+    row_images.sort(key=lambda x: x[0])
+    toi = 0.2
+
+    def compute_offset(i: int, top_img: np.ndarray, bottom_img: np.ndarray):
+        comp_h = top_img.shape[0]
+        cand_h = bottom_img.shape[0]
+        comp_overlap = top_img[int(overlap * comp_h - toi * comp_h):, :]
+        cand_overlap = bottom_img[:int(overlap * cand_h + toi * cand_h), :]
+        try:
+            dx, dy, _ = ImageRegistration.get_img2_offset(comp_overlap, cand_overlap)
+            flag_ = (cand_overlap.shape[0] * 0.2 < abs(dy)) and (abs(dy) < cand_overlap.shape[0] * 0.5)
+            if not flag_:
+                dx = 0
+                dy = int(overlap * comp_h)
+            flag = 0
+        except Exception:
+            dx = 0
+            dy = int(overlap * comp_h)
+            flag = 1
+        return (i, dx, dy, flag, comp_h, comp_overlap.shape[0])
+    
