@@ -211,3 +211,24 @@ def stitch_rows_iteratively(row_images: List[Tuple[int, np.ndarray]], overlap: f
             flag = 1
         return (i, dx, dy, flag, comp_h, comp_overlap.shape[0])
     
+    offsets = [None] * (len(row_images) - 1)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        future_to_index = {
+            executor.submit(compute_offset, i, row_images[i][1], row_images[i+1][1]): i 
+            for i in range(len(row_images) - 1)
+        }
+        for future in concurrent.futures.as_completed(future_to_index):
+            i, dx, dy, flag, comp_h, comp_overlap_h = future.result()
+            offsets[i] = (dx, dy, flag, comp_h, comp_overlap_h)
+    
+    placements = []
+    first_row_num, first_row_img = row_images[0]
+    placements.append((first_row_num, first_row_img, 0, 0))
+    composite_position = (0, 0)
+    
+    for i in range(len(offsets)):
+        row_num, candidate = row_images[i+1]
+        dx, dy, flag, comp_h, comp_overlap_h = offsets[i]
+        if flag:
+            new_x = composite_position[0] + dx
+            new_y = composite_position[1] + dy
