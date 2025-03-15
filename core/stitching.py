@@ -232,3 +232,15 @@ def stitch_rows_iteratively(row_images: List[Tuple[int, np.ndarray]], overlap: f
         if flag:
             new_x = composite_position[0] + dx
             new_y = composite_position[1] + dy
+        else:
+            new_x = composite_position[0] + dx
+            new_y = composite_position[1] + comp_h + dy - comp_overlap_h
+        placements.append((row_num, candidate, new_x, new_y))
+        composite_position = (new_x, new_y)
+    
+    xs = [x for (_, _, x, _) in placements]
+    ys = [y for (_, _, _, y) in placements]
+    rights = [x + img.shape[1] for (_, img, x, _) in placements]
+    bottoms = [y + img.shape[0] for (_, img, _, y) in placements]
+
+    min_x = min(xs)
