@@ -244,3 +244,20 @@ def stitch_rows_iteratively(row_images: List[Tuple[int, np.ndarray]], overlap: f
     bottoms = [y + img.shape[0] for (_, img, _, y) in placements]
 
     min_x = min(xs)
+    min_y = min(ys)
+    max_x = max(rights)
+    max_y = max(bottoms)
+    canvas_width = max_x - min_x
+    canvas_height = max_y - min_y
+
+    canvas = np.zeros((canvas_height, canvas_width, 3), dtype=np.uint8)
+    for row_num, candidate, new_x, new_y in placements:
+        x_offset = new_x - min_x
+        y_offset = new_y - min_y
+        h, w = candidate.shape[:2]
+        sub_canvas = canvas[y_offset:y_offset+h, x_offset:x_offset+w]
+        mask = candidate.sum(axis=2) > 0
+        sub_canvas[mask] = candidate[mask]
+        canvas[y_offset:y_offset+h, x_offset:x_offset+w] = sub_canvas
+
+    return canvas
