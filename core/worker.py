@@ -79,3 +79,25 @@ class StitchingWorker(QThread):
             final_image = stitch_rows_iteratively(row_images, overlap_y)
             step += 1
             self.progress_signal.emit(100)
+
+            if final_image is None:
+                self.log_signal.emit("Failed to generate final concatenated image.")
+                self.finished_signal.emit("")
+                return
+
+            final_image = cv2.cvtColor(final_image, cv2.COLOR_BGR2RGB)
+            os.makedirs(self.output_dir, exist_ok=True)
+
+            height, width, bands = final_image.shape
+            img_bytes = final_image.tobytes()
+            vips_image = pyvips.Image.new_from_memory(img_bytes, width, height, bands, "uchar")
+            pyramidal_path = os.path.join(self.output_dir, "final_concatenated_image_01.tif")
+            
+            self.status_signal.emit("Saving Pyramidal TIFF...")
+            vips_image.tiffsave(
+                pyramidal_path,
+                tile=True,
+                pyramid=True,
+                tile_width=512,
+                tile_height=512,
+                compression=self.compression,
