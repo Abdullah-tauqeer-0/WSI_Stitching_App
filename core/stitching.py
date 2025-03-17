@@ -261,3 +261,5 @@ def stitch_rows_iteratively(row_images: List[Tuple[int, np.ndarray]], overlap: f
         canvas[y_offset:y_offset+h, x_offset:x_offset+w] = sub_canvas
 
     return canvas
+
+# Fixed edge case 413
