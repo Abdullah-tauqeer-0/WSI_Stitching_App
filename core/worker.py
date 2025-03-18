@@ -101,3 +101,17 @@ class StitchingWorker(QThread):
                 tile_width=512,
                 tile_height=512,
                 compression=self.compression,
+                Q=75,
+                bigtiff=True
+            )
+            self.log_signal.emit(f"Pyramidal WSI saved to: {pyramidal_path}")
+            self.status_signal.emit("Stitching complete.")
+            self.finished_signal.emit(pyramidal_path)
+            
+        except ImportError:
+             self.log_signal.emit("Error: pyvips not installed or VIPS DLLs not found.")
+             self.finished_signal.emit("")
+        except Exception as e:
+            error_msg = f"Error during stitching: {e}\n{traceback.format_exc()}"
+            self.log_signal.emit(error_msg)
+            self.finished_signal.emit("")
