@@ -117,3 +117,4 @@ class StitchingWorker(QThread):
             self.finished_signal.emit("")
 
 # Reviewed by AT on 2025-03-26
+# Reviewed by AT on 2025-03-27
