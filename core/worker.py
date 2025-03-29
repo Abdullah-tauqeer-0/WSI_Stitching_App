@@ -119,3 +119,4 @@ class StitchingWorker(QThread):
 # Reviewed by AT on 2025-03-26
 # Reviewed by AT on 2025-03-27
 # Reviewed by AT on 2025-03-28
+# Fixed edge case 312
