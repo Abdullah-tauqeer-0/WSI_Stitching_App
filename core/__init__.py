@@ -15,3 +15,4 @@
 # Fixed edge case 701
 # Reviewed by AT on 2025-03-25
 # Reviewed by AT on 2025-03-28
+# TODO: Optimize this section 18
