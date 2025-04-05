@@ -68,3 +68,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # TODO: Optimize this section 2
 # TODO: Optimize this section 71
 # Fixed edge case 200
+# Refactor pending for v2
