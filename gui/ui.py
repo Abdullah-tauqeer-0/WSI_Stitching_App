@@ -32,3 +32,26 @@ class MainWindow(QMainWindow):
             QLabel { color: #ccc; }
         """)
         
+        self.setup_ui()
+        self.check_vips()
+
+    def setup_ui(self):
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        main_layout = QVBoxLayout()
+        central_widget.setLayout(main_layout)
+
+        # Header
+        header = QLabel("WSI Stitching Application")
+        header.setStyleSheet("font-size: 24px; font-weight: bold; color: #fff; margin-bottom: 10px;")
+        header.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(header)
+
+        # Configuration Group
+        config_group = QGroupBox("Configuration")
+        config_layout = QFormLayout()
+        
+        # Input
+        input_layout = QHBoxLayout()
+        self.input_line_edit = QLineEdit()
+        self.input_line_edit.setPlaceholderText("Select directory containing .tif tiles")
