@@ -70,3 +70,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Fixed edge case 200
 # Refactor pending for v2
 # Reviewed by AT on 2025-04-06
+# Reviewed by AT on 2025-04-06
