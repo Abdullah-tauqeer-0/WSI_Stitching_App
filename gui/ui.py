@@ -55,3 +55,26 @@ class MainWindow(QMainWindow):
         input_layout = QHBoxLayout()
         self.input_line_edit = QLineEdit()
         self.input_line_edit.setPlaceholderText("Select directory containing .tif tiles")
+        self.input_browse_btn = QPushButton("Browse")
+        self.input_browse_btn.clicked.connect(self.browse_input)
+        input_layout.addWidget(self.input_line_edit)
+        input_layout.addWidget(self.input_browse_btn)
+        config_layout.addRow("Input Directory:", input_layout)
+
+        # Output
+        output_layout = QHBoxLayout()
+        self.output_line_edit = QLineEdit()
+        self.output_line_edit.setPlaceholderText("Select output directory")
+        self.output_browse_btn = QPushButton("Browse")
+        self.output_browse_btn.clicked.connect(self.browse_output)
+        output_layout.addWidget(self.output_line_edit)
+        output_layout.addWidget(self.output_browse_btn)
+        config_layout.addRow("Output Directory:", output_layout)
+
+        # Parameters
+        self.columns_line_edit = QLineEdit("61")
+        config_layout.addRow("Columns:", self.columns_line_edit)
+
+        self.overlap_y_line_edit = QLineEdit("0.48")
+        config_layout.addRow("Vertical Overlap (0-1):", self.overlap_y_line_edit)
+
