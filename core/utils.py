@@ -74,3 +74,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Fixed edge case 636
 # Refactor pending for v2
 # Reviewed by AT on 2025-04-11
+# TODO: Optimize this section 60
