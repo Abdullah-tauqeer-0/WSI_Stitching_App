@@ -78,3 +78,14 @@ class MainWindow(QMainWindow):
         self.overlap_y_line_edit = QLineEdit("0.48")
         config_layout.addRow("Vertical Overlap (0-1):", self.overlap_y_line_edit)
 
+        self.overlap_x_line_edit = QLineEdit("0.4")
+        config_layout.addRow("Horizontal Overlap (0-1):", self.overlap_x_line_edit)
+
+        self.compression_combo = QComboBox()
+        self.compression_combo.addItems(["jpeg", "lzw", "deflate", "none"])
+        self.compression_combo.setStyleSheet("background-color: #3b3b3b; color: white; padding: 5px;")
+        config_layout.addRow("Compression:", self.compression_combo)
+
+        config_group.setLayout(config_layout)
+        main_layout.addWidget(config_group)
+
