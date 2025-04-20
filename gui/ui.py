@@ -89,3 +89,17 @@ class MainWindow(QMainWindow):
         config_group.setLayout(config_layout)
         main_layout.addWidget(config_group)
 
+        # VIPS Configuration (Hidden by default unless needed, but good to have access)
+        vips_group = QGroupBox("Advanced")
+        vips_layout = QHBoxLayout()
+        self.vips_path_edit = QLineEdit()
+        self.vips_path_edit.setPlaceholderText("Path to VIPS bin folder (optional)")
+        self.vips_browse_btn = QPushButton("Locate VIPS")
+        self.vips_browse_btn.clicked.connect(self.browse_vips)
+        vips_layout.addWidget(QLabel("VIPS Path:"))
+        vips_layout.addWidget(self.vips_path_edit)
+        vips_layout.addWidget(self.vips_browse_btn)
+        vips_group.setLayout(vips_layout)
+        main_layout.addWidget(vips_group)
+
+        # Status & Progress
