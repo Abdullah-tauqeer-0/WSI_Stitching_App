@@ -103,3 +103,23 @@ class MainWindow(QMainWindow):
         main_layout.addWidget(vips_group)
 
         # Status & Progress
+        self.status_label = QLabel("Ready")
+        self.status_label.setAlignment(Qt.AlignCenter)
+        self.status_label.setStyleSheet("font-weight: bold; color: #0dcaf0;")
+        main_layout.addWidget(self.status_label)
+
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setRange(0, 100)
+        self.progress_bar.setValue(0)
+        main_layout.addWidget(self.progress_bar)
+
+        # Log
+        self.log_text_edit = QTextEdit()
+        self.log_text_edit.setReadOnly(True)
+        main_layout.addWidget(self.log_text_edit)
+
+        # Action Buttons
+        btn_layout = QHBoxLayout()
+        self.run_btn = QPushButton("Start Stitching")
+        self.run_btn.setMinimumHeight(40)
+        self.run_btn.setStyleSheet("background-color: #198754; font-size: 16px;")
