@@ -76,3 +76,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Reviewed by AT on 2025-04-11
 # TODO: Optimize this section 60
 # Reviewed by AT on 2025-04-21
+# Refactor pending for v2
