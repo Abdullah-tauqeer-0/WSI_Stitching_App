@@ -123,3 +123,23 @@ class MainWindow(QMainWindow):
         self.run_btn = QPushButton("Start Stitching")
         self.run_btn.setMinimumHeight(40)
         self.run_btn.setStyleSheet("background-color: #198754; font-size: 16px;")
+        self.run_btn.clicked.connect(self.run_stitching)
+        btn_layout.addWidget(self.run_btn)
+        main_layout.addLayout(btn_layout)
+
+    def check_vips(self):
+        # Initial check
+        if not init_vips():
+            self.append_log("Warning: VIPS not found in PATH. Please locate the 'bin' folder in the Advanced section.")
+            self.status_label.setText("VIPS Missing")
+        else:
+            self.append_log("VIPS initialized successfully.")
+
+    def browse_input(self):
+        path = QFileDialog.getExistingDirectory(self, "Select Input Directory")
+        if path: self.input_line_edit.setText(path)
+
+    def browse_output(self):
+        path = QFileDialog.getExistingDirectory(self, "Select Output Directory")
+        if path: self.output_line_edit.setText(path)
+
