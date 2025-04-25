@@ -143,3 +143,30 @@ class MainWindow(QMainWindow):
         path = QFileDialog.getExistingDirectory(self, "Select Output Directory")
         if path: self.output_line_edit.setText(path)
 
+    def browse_vips(self):
+        path = QFileDialog.getExistingDirectory(self, "Select VIPS bin Directory")
+        if path:
+            self.vips_path_edit.setText(path)
+            if init_vips(path):
+                self.append_log(f"VIPS initialized from {path}")
+                self.status_label.setText("Ready")
+            else:
+                self.append_log(f"Failed to initialize VIPS from {path}")
+
+    def append_log(self, message: str):
+        self.log_text_edit.append(message)
+
+    def update_progress(self, value: int):
+        self.progress_bar.setValue(value)
+
+    def update_status(self, text: str):
+        self.status_label.setText(text)
+
+    def run_stitching(self):
+        input_dir = self.input_line_edit.text().strip()
+        output_dir = self.output_line_edit.text().strip()
+        
+        # Ensure VIPS is ready
+        vips_path = self.vips_path_edit.text().strip()
+        if vips_path:
+            init_vips(vips_path)
