@@ -170,3 +170,31 @@ class MainWindow(QMainWindow):
         vips_path = self.vips_path_edit.text().strip()
         if vips_path:
             init_vips(vips_path)
+
+        if not os.path.isdir(input_dir):
+            QMessageBox.warning(self, "Error", "Invalid input directory.")
+            return
+        if not os.path.isdir(output_dir):
+            QMessageBox.warning(self, "Error", "Invalid output directory.")
+            return
+
+        try:
+            columns = int(self.columns_line_edit.text().strip())
+            overlap_y = float(self.overlap_y_line_edit.text().strip())
+            overlap_x = float(self.overlap_x_line_edit.text().strip())
+        except ValueError:
+            QMessageBox.warning(self, "Error", "Invalid numeric parameters.")
+            return
+
+        compression = self.compression_combo.currentText()
+
+        self.run_btn.setEnabled(False)
+        self.progress_bar.setValue(0)
+        self.status_label.setText("Initializing...")
+        self.append_log("Starting stitching process...")
+        
+        self.worker = StitchingWorker(input_dir, output_dir, columns, overlap_y, overlap_x, compression)
+        self.worker.log_signal.connect(self.append_log)
+        self.worker.progress_signal.connect(self.update_progress)
+        self.worker.status_signal.connect(self.update_status)
+        self.worker.finished_signal.connect(self.stitching_finished)
