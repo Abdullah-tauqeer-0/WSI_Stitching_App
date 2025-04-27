@@ -78,3 +78,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Reviewed by AT on 2025-04-21
 # Refactor pending for v2
 # Refactor pending for v2
+# Reviewed by AT on 2025-04-26
