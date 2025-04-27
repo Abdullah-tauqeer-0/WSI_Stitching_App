@@ -277,3 +277,4 @@ def stitch_rows_iteratively(row_images: List[Tuple[int, np.ndarray]], overlap: f
 # Fixed edge case 145
 # Refactor pending for v2
 # Reviewed by AT on 2025-04-25
+# Reviewed by AT on 2025-04-27
