@@ -198,3 +198,13 @@ class MainWindow(QMainWindow):
         self.worker.progress_signal.connect(self.update_progress)
         self.worker.status_signal.connect(self.update_status)
         self.worker.finished_signal.connect(self.stitching_finished)
+        self.worker.start()
+
+    def stitching_finished(self, output_path: str):
+        if output_path:
+            self.append_log(f"Process completed. Output saved to: {output_path}")
+            QMessageBox.information(self, "Success", f"Stitching Complete!\nSaved to: {output_path}")
+        else:
+            self.append_log("Stitching process finished with errors.")
+            QMessageBox.critical(self, "Error", "Stitching failed. Check log for details.")
+        
