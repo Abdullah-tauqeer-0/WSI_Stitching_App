@@ -208,3 +208,6 @@ class MainWindow(QMainWindow):
             self.append_log("Stitching process finished with errors.")
             QMessageBox.critical(self, "Error", "Stitching failed. Check log for details.")
         
+        self.run_btn.setEnabled(True)
+        self.status_label.setText("Idle")
+        self.progress_bar.setValue(0)
