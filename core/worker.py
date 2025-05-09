@@ -128,3 +128,4 @@ class StitchingWorker(QThread):
 # Fixed edge case 568
 # Reviewed by AT on 2025-04-28
 # TODO: Optimize this section 3
+# Refactor pending for v2
