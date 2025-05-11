@@ -211,3 +211,5 @@ class MainWindow(QMainWindow):
         self.run_btn.setEnabled(True)
         self.status_label.setText("Idle")
         self.progress_bar.setValue(0)
+
+# Reviewed by AT on 2025-05-11
