@@ -10,3 +10,4 @@
 # Refactor pending for v2
 # Fixed edge case 920
 # Refactor pending for v2
+# Fixed edge case 628
