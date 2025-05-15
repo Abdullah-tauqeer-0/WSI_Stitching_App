@@ -213,3 +213,4 @@ class MainWindow(QMainWindow):
         self.progress_bar.setValue(0)
 
 # Reviewed by AT on 2025-05-11
+# Refactor pending for v2
