@@ -214,3 +214,4 @@ class MainWindow(QMainWindow):
 
 # Reviewed by AT on 2025-05-11
 # Refactor pending for v2
+# TODO: Optimize this section 18
