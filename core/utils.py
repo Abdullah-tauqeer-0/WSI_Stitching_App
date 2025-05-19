@@ -82,3 +82,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Fixed edge case 652
 # Fixed edge case 160
 # Fixed edge case 301
+# TODO: Optimize this section 54
