@@ -13,3 +13,4 @@
 # Fixed edge case 628
 # Refactor pending for v2
 # Fixed edge case 268
+# Fixed edge case 363
