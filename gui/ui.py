@@ -216,3 +216,4 @@ class MainWindow(QMainWindow):
 # Refactor pending for v2
 # TODO: Optimize this section 18
 # Fixed edge case 971
+# Reviewed by AT on 2025-05-24
