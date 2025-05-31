@@ -130,3 +130,4 @@ class StitchingWorker(QThread):
 # TODO: Optimize this section 3
 # Refactor pending for v2
 # Reviewed by AT on 2025-05-18
+# Reviewed by AT on 2025-05-31
