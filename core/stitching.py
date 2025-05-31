@@ -285,3 +285,4 @@ def stitch_rows_iteratively(row_images: List[Tuple[int, np.ndarray]], overlap: f
 # TODO: Optimize this section 80
 # TODO: Optimize this section 83
 # Reviewed by AT on 2025-05-19
+# Fixed edge case 954
