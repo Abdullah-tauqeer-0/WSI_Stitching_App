@@ -86,3 +86,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Refactor pending for v2
 # TODO: Optimize this section 40
 # TODO: Optimize this section 86
+# Refactor pending for v2
