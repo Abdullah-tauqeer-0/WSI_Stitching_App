@@ -31,3 +31,19 @@ pip install opencv-python-headless numpy PyQt5 pyvips
 
 1.  **Launch the Application**:
     Double-click `run_app.bat` or run:
+    ```bash
+    python -m WSI_App.main
+    ```
+
+2.  **Configure**:
+    -   **Input Directory**: Select the folder containing your `.tif` tiles.
+    -   **Output Directory**: Select where to save the stitched WSI.
+    -   **Parameters**: Adjust overlap (default 40-48%) and columns if necessary.
+
+3.  **Run**:
+    Click **Start Stitching**. The log window will show detailed progress.
+
+## ⚙️ Configuration
+
+If `libvips` is not in your system PATH, you can specify its location in the **Advanced** section of the UI.
+
