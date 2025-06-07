@@ -47,3 +47,14 @@ pip install opencv-python-headless numpy PyQt5 pyvips
 
 If `libvips` is not in your system PATH, you can specify its location in the **Advanced** section of the UI.
 
+## 🏗️ Architecture
+
+The application is modularized for maintainability:
+-   `ui.py`: Handles the Graphical User Interface.
+-   `worker.py`: Manages background threads to keep the UI responsive.
+-   `stitching.py`: Contains the core computer vision algorithms.
+-   `utils.py`: Helper functions and VIPS initialization.
+
+## 📝 License
+
+This project is licensed under the MIT License.
