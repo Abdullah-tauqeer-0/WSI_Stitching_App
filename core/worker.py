@@ -133,3 +133,4 @@ class StitchingWorker(QThread):
 # Reviewed by AT on 2025-05-31
 # Reviewed by AT on 2025-05-31
 # TODO: Optimize this section 56
+# TODO: Optimize this section 60
