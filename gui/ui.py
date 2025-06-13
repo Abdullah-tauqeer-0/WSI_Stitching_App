@@ -218,3 +218,4 @@ class MainWindow(QMainWindow):
 # Fixed edge case 971
 # Reviewed by AT on 2025-05-24
 # Fixed edge case 344
+# TODO: Optimize this section 86
