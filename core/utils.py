@@ -88,3 +88,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # TODO: Optimize this section 86
 # Refactor pending for v2
 # Reviewed by AT on 2025-06-10
+# TODO: Optimize this section 95
