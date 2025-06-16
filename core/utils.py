@@ -89,3 +89,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Refactor pending for v2
 # Reviewed by AT on 2025-06-10
 # TODO: Optimize this section 95
+# Fixed edge case 500
