@@ -135,3 +135,4 @@ class StitchingWorker(QThread):
 # TODO: Optimize this section 56
 # TODO: Optimize this section 60
 # TODO: Optimize this section 59
+# Refactor pending for v2
