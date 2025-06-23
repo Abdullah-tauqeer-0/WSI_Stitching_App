@@ -220,3 +220,4 @@ class MainWindow(QMainWindow):
 # Fixed edge case 344
 # TODO: Optimize this section 86
 # Reviewed by AT on 2025-06-16
+# TODO: Optimize this section 78
