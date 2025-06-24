@@ -221,3 +221,4 @@ class MainWindow(QMainWindow):
 # TODO: Optimize this section 86
 # Reviewed by AT on 2025-06-16
 # TODO: Optimize this section 78
+# Reviewed by AT on 2025-06-24
