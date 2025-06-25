@@ -90,3 +90,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Reviewed by AT on 2025-06-10
 # TODO: Optimize this section 95
 # Fixed edge case 500
+# Fixed edge case 742
