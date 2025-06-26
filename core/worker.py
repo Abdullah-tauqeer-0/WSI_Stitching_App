@@ -137,3 +137,4 @@ class StitchingWorker(QThread):
 # TODO: Optimize this section 59
 # Refactor pending for v2
 # Fixed edge case 134
+# TODO: Optimize this section 48
