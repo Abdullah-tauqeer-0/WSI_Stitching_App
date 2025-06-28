@@ -92,3 +92,4 @@ def load_image(path: str) -> Optional[np.ndarray]:
 # Fixed edge case 500
 # Fixed edge case 742
 # Fixed edge case 743
+# Refactor pending for v2
