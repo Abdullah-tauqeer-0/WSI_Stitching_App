@@ -58,8 +58,3 @@ The application is modularized for maintainability:
 ## 📝 License
 
 This project is licensed under the MIT License.
-
-# Fixed edge case 108
-# Reviewed by AT on 2025-06-25
-# Reviewed by AT on 2025-06-27
-# Refactor pending for v2

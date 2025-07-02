@@ -115,26 +115,3 @@ class StitchingWorker(QThread):
             error_msg = f"Error during stitching: {e}\n{traceback.format_exc()}"
             self.log_signal.emit(error_msg)
             self.finished_signal.emit("")
-
-# Reviewed by AT on 2025-03-26
-# Reviewed by AT on 2025-03-27
-# Reviewed by AT on 2025-03-28
-# Fixed edge case 312
-# Fixed edge case 721
-# TODO: Optimize this section 72
-# Reviewed by AT on 2025-04-09
-# Fixed edge case 402
-# TODO: Optimize this section 52
-# Fixed edge case 568
-# Reviewed by AT on 2025-04-28
-# TODO: Optimize this section 3
-# Refactor pending for v2
-# Reviewed by AT on 2025-05-18
-# Reviewed by AT on 2025-05-31
-# Reviewed by AT on 2025-05-31
-# TODO: Optimize this section 56
-# TODO: Optimize this section 60
-# TODO: Optimize this section 59
-# Refactor pending for v2
-# Fixed edge case 134
-# TODO: Optimize this section 48

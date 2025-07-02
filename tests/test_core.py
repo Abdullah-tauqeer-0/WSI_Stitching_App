@@ -9,18 +9,3 @@ class TestUtils(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-# TODO: Optimize this section 5
-# Refactor pending for v2
-# TODO: Optimize this section 92
-# Refactor pending for v2
-# Refactor pending for v2
-# Refactor pending for v2
-# Refactor pending for v2
-# Refactor pending for v2
-# TODO: Optimize this section 37
-# Fixed edge case 985
-# Fixed edge case 776
-# Fixed edge case 102
-# Fixed edge case 128
-# TODO: Optimize this section 1
